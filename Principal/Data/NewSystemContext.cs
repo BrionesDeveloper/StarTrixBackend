@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NewSystem.Domain.PowerCrushPlayer;
-using NewSystem.Domain.PowerCrushProduct;
+using NewSystem.Domain.Product;
+using NewSystem.Domain.Player;
+using NewSystem.Domain.Score;
 
 namespace NewSystem.Data
 {
-    /// <summary>Configuring the database connection.</summary>
     public class NewSystemContext : DbContext
     {
         public NewSystemContext(DbContextOptions<NewSystemContext> options) : base(options) { }
-        public virtual DbSet<Players> Players { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
+
+        public DbSet<Product> Products { get; set; } = null!;
+        public DbSet<Player> Players { get; set; } = null!;
+        public DbSet<Score> Scores { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

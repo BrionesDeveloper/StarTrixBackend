@@ -1,6 +1,7 @@
 using MediatR;
 using NewSystem;
 using NewSystem.App.Product;
+using NewSystem.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +28,14 @@ builder.Services.AddCors(options =>
             .AllowCredentials());
 });
 
+var app = builder.Build(); // Moved app initialization here
 
-var app = builder.Build();
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    var ctx = scope.ServiceProvider.GetRequiredService<NewSystemContext>();
+    await DbInitializer.SeedAsync(ctx);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -39,8 +46,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseRouting();                    
-app.UseCors("AllowAngular");        
+app.UseRouting();
+app.UseCors("AllowAngular");
 
 app.UseAuthorization();
 

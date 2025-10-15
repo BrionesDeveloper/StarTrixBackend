@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NewSystem.Data;
-using NewSystem.Domain.PowerCrushProduct;
+using NewSystem.Domain.Product;
 
 namespace NewSystem.App.Product
 {
