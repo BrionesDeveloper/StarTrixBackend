@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NewSystem.Data;
-using NewSystem.Domain.Product;
+using NewSystem.Domain.Products;
 
-namespace NewSystem.App.Product
+namespace NewSystem.App.Products
 {
-    public record UpSertProductCommand(string Code, int CategoryId, bool IsComposed, string ImageUrl) : IRequest<Result<bool>>;
+    public record UpSertProductCommand(string Code, int CategoryId, bool IsComposed, string ImageUrl, string Name, string Sku, int FootprintW, int FootprintH) : IRequest<Result<bool>>;
     internal class RegisterProductHandler(NewSystemContext context) : IRequestHandler<UpSertProductCommand, Result<bool>>
     {
         /// <summary>Handles a request</summary>
@@ -21,13 +21,26 @@ namespace NewSystem.App.Product
 
             if (product is not null)
             {
-                product.Update(request.CategoryId, request.IsComposed, request.ImageUrl);
+                product.CategoryId = request.CategoryId;
+                product.IsComposed = request.IsComposed;
+                product.ImageUrl = request.ImageUrl;
+
+                context.Products.Update(product);
                 await context.SaveChangesAsync();
 
                 return new Ok<bool>(true);
             }
 
-            Products? productRegister = Products.Create(request.Code, request.CategoryId, request.IsComposed, request.ImageUrl);
+            Product? productRegister = Product.Create(
+                request.Code,
+                request.CategoryId,
+                request.IsComposed,
+                request.ImageUrl,
+                request.Name,
+                request.Sku,
+                request.FootprintW,
+                request.FootprintH
+            );
 
             context.Add(productRegister);
             await context.SaveChangesAsync();

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NewSystem.Domain.Player;
+using NewSystem.Domain.Players;
 
 namespace NewSystem.Data.Schema
 {

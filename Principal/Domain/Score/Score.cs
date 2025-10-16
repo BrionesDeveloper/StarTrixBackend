@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NewSystem.Domain.Player;
+using NewSystem.Domain.Players;
 
-namespace NewSystem.Domain.Score
+namespace NewSystem.Domain.Scores
 {
     public class Score
     {

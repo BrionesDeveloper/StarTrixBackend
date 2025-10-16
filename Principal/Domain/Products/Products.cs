@@ -1,6 +1,6 @@
-﻿using NewSystem.Domain.PowerCrushPlayer;
+﻿using NewSystem.Domain.Players;
 
-namespace NewSystem.Domain.Product
+namespace NewSystem.Domain.Products
 {
     /// <summary>
     /// Entity for products used in the game.

@@ -1,6 +1,6 @@
 using MediatR;
 using NewSystem;
-using NewSystem.App.Product;
+using NewSystem.App.Products;
 using NewSystem.Data;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,8 +1,9 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NewSystem.Data;
+using NewSystem.Domain.Products;
 
-namespace NewSystem.App.Product
+namespace NewSystem.App.Products
 {
    public record GetProductsQuery() : IRequest<Result<List<GetProductsList>>>;
 
@@ -16,6 +17,7 @@ namespace NewSystem.App.Product
         /// <returns>Returns the list of products.</returns>
         public async Task<Result<List<GetProductsList>>> Handle(GetProductsQuery query, CancellationToken cancellationToken)
         {
+            
             var data = await context.Products
             .Select(x => new GetProductsList(
                 x.Code,

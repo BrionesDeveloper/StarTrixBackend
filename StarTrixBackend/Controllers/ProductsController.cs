@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NewSystem;
-using NewSystem.App.Product;
+using NewSystem.App.Products;
 
 namespace StarTrixBackend.Controllers
 {

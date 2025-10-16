@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NewSystem.Domain.Score;
+using NewSystem.Domain.Scores;
 
 namespace NewSystem.Data.Schema
 {

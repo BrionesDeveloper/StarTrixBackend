@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NewSystem;
-using NewSystem.App.Player;
+using NewSystem.App.Players;
 
 namespace StarTrixBackend.Controllers
 {
@@ -10,14 +10,15 @@ namespace StarTrixBackend.Controllers
     public class PlayersController : ControllerBase
     {
         private readonly IMediator _mediator;
+
         public PlayersController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        /// <summary>Gets all.</summary>
-        /// <param name="cancellation">The cancellation.</param>
-        /// <returns>Returns the list of tool loans, otherwise it returns an error.</returns>
+        /// <summary>
+        /// Gets the top 10 players sorted by their latest score (leaderboard).
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<List<GetPlayersList>>> GetAll(CancellationToken cancellation)
         {
@@ -31,10 +32,9 @@ namespace StarTrixBackend.Controllers
             };
         }
 
-        /// <summary>Ups the sert.</summary>
-        /// <param name="command">The command.</param>
-        /// <param name="cancellation">The cancellation.</param>
-        /// <returns>Returns a boolean if everything is done correctly, if not, it returns an error.</returns>
+        /// <summary>
+        /// Creates or updates a player and adds a new score.
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult<bool>> UpSert([FromBody] UpSertPlayerCommand command, CancellationToken cancellation)
         {
@@ -43,15 +43,14 @@ namespace StarTrixBackend.Controllers
             return result switch
             {
                 Ok<bool> ok => Ok(ok.Value),
-                Error<bool> error => NotFound(new { error.Code, error.Message }),
+                Error<bool> error => BadRequest(new { error.Code, error.Message }),
                 _ => StatusCode(500)
             };
         }
 
-        /// <summary>Deletes the specified command.</summary>
-        /// <param name="command">The command.</param>
-        /// <param name="cancellation">The cancellation.</param>
-        /// <returns>Returns a boolean if everything is done correctly, if not, it returns an error.</returns>
+        /// <summary>
+        /// Deletes a player by ID.
+        /// </summary>
         [HttpDelete]
         public async Task<ActionResult<bool>> Delete([FromQuery] RemovePlayerCommand command, CancellationToken cancellation)
         {

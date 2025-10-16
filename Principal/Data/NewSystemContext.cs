@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NewSystem.Domain.Product;
-using NewSystem.Domain.Player;
-using NewSystem.Domain.Score;
+using NewSystem.Domain.Products;
+using NewSystem.Domain.Players;
+using NewSystem.Domain.Scores;
 
 namespace NewSystem.Data
 {

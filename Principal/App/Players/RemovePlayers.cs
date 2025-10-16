@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using NewSystem.Data;
 
-namespace NewSystem.App.Player
+namespace NewSystem.App.Players
 {
-    public record RemovePlayerCommand(int Id) : IRequest<Result<bool>>;
-    internal class RemovePlayer(NewSystemContext context) : IRequestHandler<RemovePlayerCommand, Result<bool>>
+    public record RemovePlayerCommand(Guid Id) : IRequest<Result<bool>>;
+    internal class RemovePlayers(NewSystemContext context) : IRequestHandler<RemovePlayerCommand, Result<bool>>
     {
         /// <summary>Handles a request</summary>
         /// <param name="request">The request</param>
