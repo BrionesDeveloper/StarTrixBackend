@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NewSystem;
 using NewSystem.App.Products;
 using NewSystem.Data;
@@ -18,6 +19,8 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(GetProductsQuery).Assembly);
 });
 
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular",
@@ -28,6 +31,10 @@ builder.Services.AddCors(options =>
             .AllowCredentials());
 });
 
+builder.Services.AddDbContext<NewSystemContext>(opt =>
+    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
 var app = builder.Build(); // Moved app initialization here
 
 if (app.Environment.IsDevelopment())
@@ -36,6 +43,13 @@ if (app.Environment.IsDevelopment())
     var ctx = scope.ServiceProvider.GetRequiredService<NewSystemContext>();
     await DbInitializer.SeedAsync(ctx);
 }
+
+using (var scope = app.Services.CreateScope())
+{
+    var ctx = scope.ServiceProvider.GetRequiredService<NewSystemContext>();
+    await DbInitializer.SeedAsync(ctx);
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

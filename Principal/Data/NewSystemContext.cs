@@ -15,7 +15,7 @@ namespace NewSystem.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("dbo");
+            
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(NewSystemContext).Assembly);
         }
     }
